@@ -1,0 +1,16 @@
+unit_id,unit,unit_sanitized,ordlist
+-1,Not applicable,Not applicable,
+0,NOT AVAILABLE,NOT AVAILABLE,0.0
+1,Bq/m3,Bq per m3,1.0
+2,Bq/m2,Bq per m2,2.0
+3,Bq/kg,Bq per kg,3.0
+4,Bq/kgd,Bq per kgd,4.0
+5,Bq/kgw,Bq per kgw,5.0
+6,kg/kg,kg per kg,6.0
+7,TU,TU,7.0
+8,DELTA/mill,DELTA per mill,8.0
+9,atom/kg,atom per kg,9.0
+10,atom/kgd,atom per kgd,10.0
+11,atom/kgw,atom per kgw,11.0
+12,atom/l,atom per l,12.0
+13,Bq/kgC,Bq per kgC,13.0

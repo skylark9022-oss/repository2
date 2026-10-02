@@ -1,0 +1,7 @@
+id,name,name_sanitized
+-1,Not applicable,Not applicable
+0,Not Available,Not available
+1,=,Detected value
+2,<,Detection limit
+3,ND,Not detected
+4,DE,Derived

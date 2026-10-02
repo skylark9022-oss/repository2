@@ -24,15 +24,17 @@ repository2/
 │   ├── raw/                ← 내려받은 원본 (수정 금지)
 │   ├── interim/            ← 파싱만 한 중간 단계 (재생성 가능)
 │   ├── processed/          ← 통합 스키마로 정리된 DB
-│   └── external/           ← 보조 자료 (WOA 기후값 등). 대용량은 깃에서 제외
+│   └── external/           ← 보조 자료. maris_lut/ 에 MARIS 코드 해석표 포함. 대용량(.nc)은 깃에서 제외
 ├── docs/
 │   ├── git_guide.md        ← 깃 입문 (처음이면 여기부터)
-│   ├── data_sources.md     ← 공개 DB 후보 목록과 확인 상태
+│   ├── data_sources.md     ← 공개 DB 목록 (검증 등급 표시)
+│   ├── halflife_sources.md ← 반감기 출처 비교표 (DDEP / ICRP-107 / NUBASE2020)
+│   ├── evidence/           ← 세션 안에서 직접 추출한 검증 자료
 │   ├── schema.md           ← 통합 DB 컬럼 정의
 │   ├── decisions.md        ← 방침 결정 기록
 │   └── data_log.md         ← 데이터 입수 일지
 ├── notebooks/              ← 탐색용 주피터 노트북
-├── src/pacific_radio/      ← 재사용 코드 (스키마, 반감기, 붕괴 보정)
+├── src/pacific_radio/      ← 재사용 코드 (스키마 검증, 출처별 반감기, 붕괴 보정)
 ├── tests/                  ← 코드 검증 테스트
 └── figures/                ← 그림 산출물
 ```

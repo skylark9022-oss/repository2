@@ -1,0 +1,40 @@
+counmet_id,counmet,code
+-1,Not applicable,
+0,Not available,0
+1,Atomic absorption,AA
+2,Alpha,ALP
+3,Alpha ionization chamber spectrometry,ALPI
+4,Alpha liquid scintillation spectrometry,ALPL
+5,Alpha semiconductor spectrometry,ALPS
+6,Alpha total,ALPT
+7,Accelerator mass spectrometry,AMS
+8,Beta,BET
+9,Beta GM counting,BETG
+10,Beta liquid scintillation spectrometry,BETL
+11,Beta gas proportional counting,BETP
+12,Beta semiconductor spectrometry,BETS
+13,Beta total,BETT
+14,Colorimetry,COL
+15,Alpha Lucas type scintillation,ALLS
+16,Fission track counting,FIS
+17,Fluorimetry,FLU
+18,Gamma,GAM
+19,Gamma spectrometry in situ,GAMI
+20,Gamma semiconductor spectrometry,GAMS
+21,Gamma scintillation spectrometry,GASS
+22,Gas proportional counting,GPC
+23,Inductively coupled plasma atomic emission spectroscopy,ICP
+24,Inductively coupled plasma source mass spectrometry,ICPMS
+25,Mass spectrometry,MS
+26,Neutron activation analysis,NAA
+27,Resonance ionization mass spectrometry,RIMS
+28,Secondary ion mass spectrometry,SIMS
+29,Thermal ionization mass spectrometry,TIMS
+30,X-ray spectrometry,XRAY
+31,X-ray fluorescence spectrometry,XRF
+32,Alpha spectrometry,ALSPC
+33,Gamma spectrometry,GASPC
+34,Gamma total,GAMT
+35,Low-level beta anticoincidence counting,BLLAC
+36,Alpha delayed coincidence counting,ALDCC
+37,Beta Cerenkov radiation counting,BECE

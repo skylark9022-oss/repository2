@@ -1,0 +1,27 @@
+sampmet_id,sampmet,code,type_1,type_2,type_3,type_4
+-1,Not applicable,,,,,
+0,Not available,0,2.0,3.0,4.0,1.0
+1,Bottle sampling,BOTTL,1.0,4.0,0.0,0.0
+2,Box corer,BOX,3.0,0.0,0.0,0.0
+3,Cartridge,CART,4.0,1.0,0.0,0.0
+4,Dredge,DRE,2.0,0.0,0.0,0.0
+5,Grab sampler sediment,GRABS,3.0,0.0,0.0,0.0
+6,Grab sampling water,GRABW,1.0,0.0,0.0,0.0
+7,Gravity corer,GRAV,3.0,0.0,0.0,0.0
+8,Gravity corer with piston,GRAVP,3.0,0.0,0.0,0.0
+9,By hand,HAN,2.0,0.0,0.0,0.0
+10,Jigging,JIGGING,2.0,0.0,0.0,0.0
+11,Net,NET,2.0,0.0,0.0,0.0
+12,Niskin bottles,NISK,1.0,0.0,0.0,0.0
+13,Other type of sampler,OTH,2.0,3.0,4.0,1.0
+14,Pumping,PUMP,1.0,4.0,0.0,0.0
+15,Pumping with pre-concentration,PUMPP,1.0,4.0,0.0,0.0
+16,Scoop,SCO,2.0,0.0,0.0,0.0
+17,Sediment trap,SEDT,4.0,0.0,0.0,0.0
+18,Fish trap,TRAP,2.0,0.0,0.0,0.0
+19,Trawl,TRAWL,2.0,0.0,0.0,0.0
+20,Multicorer,MULTI,3.0,0.0,0.0,0.0
+21,Filter,FILT,4.0,0.0,0.0,0.0
+23,Bucket,BUCK,1.0,2.0,,4.0
+24,Underway sampling,UWS,1.0,0.0,0.0,1.0
+25,Towed underway sampling,TUWS,1.0,0.0,0.0,1.0

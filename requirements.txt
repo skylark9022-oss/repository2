@@ -11,3 +11,4 @@ matplotlib>=3.7
 cartopy>=0.22        # 지도 작도. 설치가 까다로우면 conda 사용 권장
 jupyterlab>=4.0
 pytest>=7.0
+radioactivedecay>=0.6  # ICRP-107 반감기 교차 검증용 (tests/test_decay.py)
