@@ -1,0 +1,79 @@
+{
+  "maris_helcom": {
+    "reconcile": {
+      "file": "maris_sample_helcom_2024.nc",
+      "n_raw_rows": 9,
+      "n_raw_target_nuclide": 9,
+      "n_expected_if_all_regions": 9,
+      "n_processed_rows": 9,
+      "n_compared": 9,
+      "n_fields_checked_per_row": 13,
+      "n_mismatches": 0,
+      "missing_source_rows": []
+    },
+    "accounting": {
+      "n_in": 9,
+      "n_kept": 9,
+      "n_dropped_other_nuclides": 0,
+      "n_outside_pacific": 0,
+      "n_dropped_invalid": 0,
+      "sum": 9,
+      "ok": true
+    },
+    "roundtrip": {
+      "n_rows": 9,
+      "mismatch_cells": [],
+      "ok": true
+    }
+  },
+  "synthetic_wide_csv": {
+    "truth": {
+      "n_truth": 6089,
+      "n_processed": 6089,
+      "n_matched": 6089,
+      "n_missing": 0,
+      "missing_examples": [],
+      "n_mismatches": 0,
+      "mismatches": []
+    },
+    "accounting": {
+      "n_in": 6089,
+      "n_kept": 6089,
+      "n_dropped_other_nuclides": 0,
+      "n_outside_pacific": 0,
+      "n_dropped_invalid": 0,
+      "sum": 6089,
+      "ok": true
+    },
+    "roundtrip": {
+      "n_rows": 6089,
+      "mismatch_cells": [],
+      "ok": true
+    }
+  },
+  "synthetic_long_xlsx": {
+    "truth": {
+      "n_truth": 6089,
+      "n_processed": 6089,
+      "n_matched": 6089,
+      "n_missing": 0,
+      "missing_examples": [],
+      "n_mismatches": 0,
+      "mismatches": []
+    },
+    "accounting": {
+      "n_in": 6089,
+      "n_kept": 6089,
+      "n_dropped_other_nuclides": 0,
+      "n_outside_pacific": 0,
+      "n_dropped_invalid": 0,
+      "sum": 6089,
+      "ok": true
+    },
+    "roundtrip": {
+      "n_rows": 6089,
+      "mismatch_cells": [],
+      "ok": true
+    }
+  }
+}

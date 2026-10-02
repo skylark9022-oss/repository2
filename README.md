@@ -29,7 +29,8 @@ repository2/
 │   ├── git_guide.md        ← 깃 입문 (처음이면 여기부터)
 │   ├── data_sources.md     ← 공개 DB 목록 (검증 등급 표시)
 │   ├── halflife_sources.md ← 반감기 출처 비교표 (DDEP / ICRP-107 / NUBASE2020)
-│   ├── evidence/           ← 세션 안에서 직접 추출한 검증 자료
+│   ├── evidence/           ← 세션 안에서 직접 추출한 검증 자료 (반감기, 변환 검증 결과)
+│   ├── verification_report.md ← 변환 정확성 검증 결과와 발견된 결함
 │   ├── schema.md           ← 통합 DB 컬럼 정의
 │   ├── decisions.md        ← 방침 결정 기록
 │   └── data_log.md         ← 데이터 입수 일지
@@ -39,11 +40,13 @@ repository2/
 │   ├── decay.py            ← 출처별 반감기, 붕괴 보정
 │   ├── regions.py          ← 태평양 판정 (경계상자 + MARIS 해역명)
 │   ├── store.py            ← data/processed/ 읽기·쓰기
+│   ├── verify.py           ← 원본 ↔ 변환 결과 독립 대조 (docs/verification_report.md)
 │   └── parsers/
 │       ├── maris.py        ← IAEA MARIS NetCDF → 통합 스키마
 │       ├── tabular.py      ← CSV/XLSX 공용 엔진 (열 자동 탐지 + 매핑 JSON)
 │       └── hamglobal.py    ← HAMGlobal2021 (형식 미확인, --inspect 로 시작)
-├── tests/                  ← 코드 검증 테스트 (tests/data/ 에 MARIS 형식 샘플)
+├── scripts/run_verification.py ← 끝까지 돌려 값 정확성 확인, 증거 JSON 생성
+├── tests/                  ← 코드 검증 테스트 (tests/data/ 에 MARIS 형식 샘플, synth_tabular.py 정답 생성기)
 └── figures/                ← 그림 산출물
 ```
 

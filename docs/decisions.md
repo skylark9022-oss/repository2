@@ -49,6 +49,12 @@
 - 근거 자료: docs/data_sources.md A3 (🔎 등급), docs/parsers.md
 - 다음: 실제 파일 입수 후 `--inspect` 결과로 매핑 확정, 발췌본을 `tests/data/` 에 넣어 테스트 보강.
 
+## 2026-10-02  변환 정확성은 독립 대조로 확인한다
+- 결정: 파서마다 "테스트 통과" 가 아니라 원본(또는 정답)과 결과를 행 단위로 전수 대조하는 검증을 둔다 (`verify.py`, `scripts/run_verification.py`). 실제 자료를 변환할 때마다 `python -m pacific_radio.verify` 를 돌리고 종료 코드 0 을 확인한다.
+- 이유: 첫 전수 대조에서 단위 테스트가 못 잡은 결함 2건(불확도 열 유실 485건, 날짜 보충 누락 654건)이 나왔음.
+- 영향: `src/pacific_radio/verify.py`, `tests/test_verification.py`, `tests/synth_tabular.py`, `docs/verification_report.md`
+- 근거 자료: `docs/evidence/verification_report.json`
+
 ## 미결 사항 (결정 필요)
 - [ ] 공통 단위: Bq/m³ 로 할지 mBq/kg 로 할지. 질량↔부피 환산 시 밀도 가정 (TEOS-10 으로 현장 밀도 계산 vs 1.025 kg/L 상수) 결정 필요.
 - [ ] 붕괴 보정 기준일: 전체를 특정 일자 (예: 2020-01-01) 로 통일할지, 채취일 기준값으로 둘지.

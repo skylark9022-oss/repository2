@@ -158,7 +158,8 @@ def to_schema(raw: pd.DataFrame, attrs: dict, source_file: str) -> pd.DataFrame:
 
     out["latitude"] = pd.to_numeric(_col(raw, "lat"), errors="coerce")
     out["longitude"] = pd.to_numeric(_col(raw, "lon"), errors="coerce")
-    out["sampling_date"] = pd.to_datetime(_col(raw, "time", pd.NaT), errors="coerce")
+    t = pd.to_datetime(_col(raw, "time", pd.NaT), errors="coerce")
+    out["sampling_date"] = t.dt.normalize()          # 일 단위. 시각은 아래 notes 에 보존
     out["date_precision"] = "unknown"
     depth = pd.to_numeric(_col(raw, "smp_depth"), errors="coerce")
     out["depth_m"] = depth
@@ -200,6 +201,8 @@ def to_schema(raw: pd.DataFrame, attrs: dict, source_file: str) -> pd.DataFrame:
     tot = pd.to_numeric(_col(raw, "tot_depth"), errors="coerce")
     for i in raw.index:
         bits = [f"maris_nuclide={nuc_name[i]}", f"maris_dl={dl_name[i]}"]
+        if pd.notna(t[i]) and t[i] != t[i].normalize():
+            bits.append(f"time_utc={t[i].strftime('%H:%M:%S')}")
         if pd.notna(filt[i]) and filt[i] not in NA_NAMES:
             bits.append(f"filtered={filt[i]}")
         if pd.notna(lab[i]) and lab[i] not in NA_NAMES:

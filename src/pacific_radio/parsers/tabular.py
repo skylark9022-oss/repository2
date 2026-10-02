@@ -190,6 +190,10 @@ def parse_dates(df: pd.DataFrame, cols: dict) -> tuple[pd.Series, pd.Series]:
             except (ValueError, TypeError):
                 dt[rest] = pd.to_datetime(raw[rest], errors="coerce")
         prec = pd.Series(np.where(dt.notna(), "day", None), index=df.index, dtype="object")
+        if cols.get("year") in df.columns and dt.isna().any():      # 날짜 열이 빈 행은 연/월/일 열로 보충
+            dt2, prec2 = parse_dates(df, {k: v for k, v in cols.items() if k != "date"})
+            fill = dt.isna() & dt2.notna()
+            dt[fill], prec[fill] = dt2[fill], prec2[fill]
         return dt, prec
     if cols.get("year") in df.columns:
         y = pd.to_numeric(df[cols["year"]], errors="coerce")
@@ -264,11 +268,14 @@ def guess_mapping(columns) -> dict:
             used.add(c)
             last_nuc_col = c
         elif is_unc_label(c) and (nuc or last_nuc_col):
-            target = c if nuc else last_nuc_col
-            # 핵종이 적힌 불확도 열은 같은 핵종의 값 열에, 아니면 직전 값 열에 붙인다
+            # 핵종이 적힌 불확도 열은 같은 핵종의 값 열에 붙인다. 그런 값 열이 없거나(예: "Pu239 err" 옆의 "239,240Pu")
+            # 핵종이 안 적혀 있으면 직전 값 열에 붙인다 (아직 불확도 열이 없는 경우만).
+            target = None
             if nuc:
                 target = next((k for k, v in mapping["nuclide_columns"].items() if v["nuclide"] == nuc and v["unc_column"] is None), None)
-            if target and target in mapping["nuclide_columns"]:
+            if target is None and last_nuc_col and mapping["nuclide_columns"][last_nuc_col]["unc_column"] is None:
+                target = last_nuc_col
+            if target:
                 mapping["nuclide_columns"][target]["unc_column"] = c
                 used.add(c)
 

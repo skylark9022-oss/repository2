@@ -104,3 +104,21 @@ python -m pacific_radio.parsers.hamglobal <파일> --map column_map.json --defau
 
 ### 검증
 `tests/test_tabular_hamglobal.py`: 셀 파서 단위 테스트, wide CSV, 제목 행이 있는 2 시트 long XLSX, 매핑 덮어쓰기, 단위 미상 경고, 명령줄.
+
+## 변환 결과 검증 — `pacific_radio.verify`
+
+파서를 쓰지 않고 원본을 따로 읽어 `data/processed/` 와 대조합니다. 실제 자료를 변환할 때마다 돌리세요.
+
+```bash
+# MARIS: NetCDF 를 netCDF4 로 직접 읽어 행마다 위경도·수심·날짜·핵종·값·불확도·단위·검출한계·염분·수온 대조
+python -m pacific_radio.verify maris data/raw/maris/123.nc data/processed/maris_pacific_seawater.csv
+# 표 형식: source_row 와 notes 의 src_column 으로 원본 셀을 찾아 숫자 셀은 자동 대조, 문자 셀("<0.3", "ND")은 수동 검토 목록
+python -m pacific_radio.verify tabular data/raw/hamglobal2021/<파일> data/processed/hamglobal2021_pacific_seawater.csv --map column_map.json
+```
+종료 코드 0 = 불일치 없음. 결과 JSON 에 `mismatches`(최대 50건), `manual_review`, `missing_source_rows` 가 들어 있습니다.
+
+전체 검증 한 번에 (실제 MARIS 형식 샘플 + 정답을 아는 합성 자료 3,000 정점):
+```bash
+python scripts/run_verification.py        # docs/evidence/verification_report.json 갱신
+```
+결과 해설은 `docs/verification_report.md`.
