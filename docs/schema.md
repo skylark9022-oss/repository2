@@ -28,19 +28,21 @@
 | `latitude` | float | 십진수 도, 북위 양수 |
 | `longitude` | float | 십진수 도, **동경 양수, -180~180**. 태평양은 날짜변경선을 걸치므로 0~360 으로 바꿀지는 `decisions.md` 에서 결정 |
 | `sampling_date` | date | 채취일 (ISO 8601, `YYYY-MM-DD`). 일자 모르면 월 1일로 두고 `date_precision` 에 표시 |
-| `date_precision` | str | `day` / `month` / `year` |
+| `date_precision` | str | `day` / `month` / `year` / `unknown` (출처가 정밀도를 명시하지 않음) |
 | `depth_m` | float | 채취 수심 (m). 표층은 0 |
 | `depth_type` | str | `measured` / `nominal` / `surface` |
+| `region_orig` | str | 출처 DB 가 부여한 해역명 (예: MARIS `North Pacific Ocean`). 없으면 NaN |
 
 ### C. 핵종 측정값 (보고된 그대로)
 | 컬럼 | 형식 | 설명 |
 |---|---|---|
-| `nuclide` | str | 표준 표기: `Cs-137`, `Cs-134`, `Sr-90`, `Pu-238`, `Pu-239`, `Pu-240`, `Pu-239+240`, `Pu-241` |
+| `nuclide` | str | 표준 표기: `Cs-137`, `Cs-134`, `Sr-90`, `Pu-238`, `Pu-239`, `Pu-240`, `Pu-239+240`, `Pu-241`. 비율: `Pu-240/Pu-239`, `Pu-238/Pu-239+240` (이때 `unit_orig` 에 `atom ratio` 등 비율 종류) |
 | `value_orig` | float | 보고된 값 |
 | `unit_orig` | str | 보고된 단위 문자열 그대로 (`Bq/m3`, `mBq/kg`, `mBq/L`, `pCi/L`, …) |
 | `unc_orig` | float | 보고된 불확도 |
 | `unc_type_orig` | str | `1sigma` / `2sigma` / `counting` / `unknown` |
-| `below_dl` | bool | 검출한계 미만이면 True. 이때 `value_orig` 는 검출한계값 |
+| `below_dl` | bool | 검출한계 미만이면 True |
+| `dl_value_orig` | float | 출처가 별도로 보고한 검출한계값 (MARIS `dlv`). 없으면 NaN |
 | `ref_date_orig` | date | 출처가 명시한 붕괴 보정 기준일. 없으면 NaN (채취일 기준으로 추정하지 **않음**) |
 | `method_orig` | str | 분석법 (알파분광, ICP-MS, …) 보고된 그대로 |
 

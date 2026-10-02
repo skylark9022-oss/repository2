@@ -22,10 +22,13 @@ NUCLIDES: tuple[str, ...] = (
     "Pu-240",
     "Pu-239+240",
     "Pu-241",
+    # 비율 (활동도 농도가 아님). unit_orig 에 비율 종류를 적는다.
+    "Pu-240/Pu-239",
+    "Pu-238/Pu-239+240",
 )
 
 CTD_SOURCES: tuple[str, ...] = ("paired", "nearby", "woa", "none")
-DATE_PRECISIONS: tuple[str, ...] = ("day", "month", "year")
+DATE_PRECISIONS: tuple[str, ...] = ("day", "month", "year", "unknown")
 DEPTH_TYPES: tuple[str, ...] = ("measured", "nominal", "surface")
 QC_FLAGS: tuple[str, ...] = ("ok", "suspect", "reject")
 
@@ -47,6 +50,7 @@ COLUMNS: dict[str, str] = {
     "date_precision": "string",
     "depth_m": "float64",
     "depth_type": "string",
+    "region_orig": "string",
     # C. 핵종 측정값 (보고된 그대로)
     "nuclide": "string",
     "value_orig": "float64",
@@ -54,6 +58,7 @@ COLUMNS: dict[str, str] = {
     "unc_orig": "float64",
     "unc_type_orig": "string",
     "below_dl": "boolean",
+    "dl_value_orig": "float64",
     "ref_date_orig": "datetime64[ns]",
     "method_orig": "string",
     # D. 가공 값 (방침 결정 후 채움)

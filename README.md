@@ -34,8 +34,13 @@ repository2/
 │   ├── decisions.md        ← 방침 결정 기록
 │   └── data_log.md         ← 데이터 입수 일지
 ├── notebooks/              ← 탐색용 주피터 노트북
-├── src/pacific_radio/      ← 재사용 코드 (스키마 검증, 출처별 반감기, 붕괴 보정)
-├── tests/                  ← 코드 검증 테스트
+├── src/pacific_radio/
+│   ├── schema.py           ← 통합 스키마 정의·검증
+│   ├── decay.py            ← 출처별 반감기, 붕괴 보정
+│   ├── regions.py          ← 태평양 판정 (경계상자 + MARIS 해역명)
+│   ├── store.py            ← data/processed/ 읽기·쓰기
+│   └── parsers/maris.py    ← IAEA MARIS NetCDF → 통합 스키마 (docs/parsers.md)
+├── tests/                  ← 코드 검증 테스트 (tests/data/ 에 MARIS 형식 샘플)
 └── figures/                ← 그림 산출물
 ```
 
@@ -66,8 +71,8 @@ jupyter lab
 
 ## 단계별 계획
 
-- [ ] 1단계: 공개 DB 에서 자료 수집, 원본 보존 (`data/raw/`)
-- [ ] 2단계: 통합 스키마로 정리 (`data/processed/`)
+- [ ] 1단계: 공개 DB 에서 자료 수집, 원본 보존 (`data/raw/`) — MARIS 파서 준비됨, 파일만 받으면 됨
+- [ ] 2단계: 통합 스키마로 정리 (`data/processed/`) — MARIS 는 `python -m pacific_radio.parsers.maris` 로
 - [ ] 3단계: 단위·붕괴 보정 방침 결정 (`docs/decisions.md`)
 - [ ] 4단계: (a) 수심별 연직 프로파일
 - [ ] 5단계: (b) T-S 다이어그램 위 농도, (c) 핵종비 기원 추적, (d) 수평 분포도
