@@ -55,3 +55,9 @@ def test_extra_column_fails():
     df["oops"] = 1
     with pytest.raises(ValueError, match="oops"):
         schema.validate(df)
+
+
+def test_value_missing_allowed_when_below_dl():
+    schema.validate(_one_row(value_orig=None, below_dl=True))
+    with pytest.raises(ValueError, match="value_orig"):
+        schema.validate(_one_row(value_orig=None, below_dl=False))

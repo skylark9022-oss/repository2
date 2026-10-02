@@ -41,7 +41,7 @@
 | `unit_orig` | str | 보고된 단위 문자열 그대로 (`Bq/m3`, `mBq/kg`, `mBq/L`, `pCi/L`, …) |
 | `unc_orig` | float | 보고된 불확도 |
 | `unc_type_orig` | str | `1sigma` / `2sigma` / `counting` / `unknown` |
-| `below_dl` | bool | 검출한계 미만이면 True |
+| `below_dl` | bool | 검출한계 미만이면 True. True 이면 `value_orig` 결측(ND 만 보고된 경우)을 허용 |
 | `dl_value_orig` | float | 출처가 별도로 보고한 검출한계값 (MARIS `dlv`). 없으면 NaN |
 | `ref_date_orig` | date | 출처가 명시한 붕괴 보정 기준일. 없으면 NaN (채취일 기준으로 추정하지 **않음**) |
 | `method_orig` | str | 분석법 (알파분광, ICP-MS, …) 보고된 그대로 |

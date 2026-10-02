@@ -60,3 +60,47 @@ raw, attrs = maris.read_seawater("data/raw/maris/123.nc")     # 스키마 변환
 `tests/test_maris_parser.py`
 - 실제 MARIS 형식 샘플 (`tests/data/maris_sample_helcom_2024.nc`, IAEA marisco 1.9.7 동봉, 발트해 9 행)
 - 합성 파일: 날짜변경선 양쪽 경도, 검출한계 미만, 비율 핵종, 대상 외 핵종, 해역 외, 수심 결측
+
+## HAMGlobal2021 — `pacific_radio.parsers.hamglobal` (표 형식 공용 엔진 `tabular.py` 사용)
+
+### 전제
+HAMGlobal2021 파일의 열 구성은 **확인하지 못했습니다** (`docs/data_sources.md` A3, 🔎 등급). 그래서 열 이름을 고정하지 않고
+① 자동 탐지 → ② 사람이 확인·수정하는 매핑 JSON → ③ 변환, 3 단계로 설계했습니다. 실제 파일을 받으면 ①부터 돌리세요.
+
+### 명령줄
+```bash
+python -m pacific_radio.parsers.hamglobal <파일> --inspect              # 헤더, 첫 5행, 추정 매핑(JSON)
+python -m pacific_radio.parsers.hamglobal <파일> --map column_map.json --default-unit Bq/m3 --out data/processed/hamglobal2021_pacific_seawater
+# 옵션: --sheet <시트명>  --header-row <n>  --all-regions  --keep-invalid
+```
+실행 후 "매핑되지 않은 열", "단위를 모르는 행" 경고가 나오면 매핑 JSON 을 고치고 다시 돌립니다.
+
+### 매핑 JSON 구조
+```json
+{
+  "format": "wide",                      // "wide"(핵종별 열) 또는 "long"(핵종 열 + 값 열)
+  "columns": {"latitude": "Latitude", "longitude": "Longitude", "date": "Date",
+              "year": null, "month": null, "day": null, "depth_m": "Depth (m)",
+              "station": "Station", "cruise": "Cruise", "source_ref": "Ref No", "region_orig": "Region",
+              "nuclide": null, "value": null, "unc": null, "unit": null, "ref_date": null},
+  "nuclide_columns": {"137Cs (Bq/m3)": {"nuclide": "Cs-137", "unit": "Bq/m3", "unc_column": "137Cs error"}},
+  "default_unit": null,
+  "notes_columns": [],                   // 그대로 notes 에 남길 열
+  "sheet": null, "header_row": null
+}
+```
+
+### 자동 인식 규칙
+| 항목 | 인식 |
+|---|---|
+| 핵종 헤더/셀 | `137Cs`, `Cs-137`, `cs137`, `239,240Pu`, `Pu-239+240`, `240Pu/239Pu` … → 스키마 핵종명. `3H`, `241Am`, `14C`, `89Sr` 은 대상 외로 집계 후 제외 |
+| 단위 | 헤더 괄호 `(Bq/m3)`, `[mBq m-3]` → `unit_orig`. 없으면 unit 열 → `--default-unit` → `UNKNOWN` |
+| 불확도 열 | `error`, `err`, `unc`, `sd`, `sigma` 가 든 헤더. 핵종이 적혀 있으면 그 핵종에, 아니면 직전 값 열에 연결 |
+| 값 셀 | 숫자, `<0.3` (검출한계 미만, 값 = 0.3), `ND`/`n.d.` (미만, 값 NaN), `1.2±0.3` (값+불확도), `1,200` |
+| 날짜 | 문자열(여러 형식), 엑셀 일련번호, `yyyymmdd` 정수, 또는 Year/Month/Day 열 (월·일 없으면 1 로 채우고 `date_precision` 에 month/year) |
+| 좌표 | 십진수, `35 30 N`, `140-30.5 E`, `35°30'S`, `170 W` |
+| 헤더 행 | 상위 20 행 중 문자열 셀이 가장 많은 첫 행 (제목 행이 위에 있어도 됨). `--header-row` 로 지정 가능 |
+| 엑셀 | 모든 시트. 열 3 개 미만 시트(README 등)는 건너뜀. `source_file` 은 `파일명::시트명` |
+
+### 검증
+`tests/test_tabular_hamglobal.py`: 셀 파서 단위 테스트, wide CSV, 제목 행이 있는 2 시트 long XLSX, 매핑 덮어쓰기, 단위 미상 경고, 명령줄.

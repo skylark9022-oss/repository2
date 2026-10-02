@@ -103,6 +103,15 @@ def make_record_id(source_db: str, source_file: str, source_row: int) -> str:
     return f"{source_db}:{source_file}:{int(source_row)}"
 
 
+def required_missing(df: pd.DataFrame) -> pd.DataFrame:
+    """필수 컬럼별 결측 여부 (행 × REQUIRED). value_orig 는 below_dl 가 True 면 결측을 허용한다
+    (검출한계값 없이 'ND' 로만 보고된 측정도 기록으로 남기기 위함)."""
+    miss = df[list(REQUIRED)].isna()
+    if "below_dl" in df.columns:
+        miss["value_orig"] = miss["value_orig"] & ~df["below_dl"].fillna(False).astype(bool)
+    return miss
+
+
 def validate(df: pd.DataFrame) -> None:
     """스키마 위반이 있으면 ValueError, 없으면 조용히 반환.
 
@@ -119,8 +128,9 @@ def validate(df: pd.DataFrame) -> None:
     if problems:
         raise ValueError("; ".join(problems))
 
+    miss = required_missing(df)
     for c in REQUIRED:
-        n = int(df[c].isna().sum())
+        n = int(miss[c].sum())
         if n:
             problems.append(f"필수 컬럼 '{c}' 결측 {n}행")
 

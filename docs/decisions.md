@@ -42,6 +42,13 @@
 - 한계: 근사 경계. 자바 남쪽 인도양(105~115°E) 이 섞일 수 있음 → 미결 항목 참조.
 - 스키마 추가: `region_orig`(출처 해역명), `dl_value_orig`(검출한계값), `date_precision` 에 `unknown`, 핵종에 비율 `Pu-240/Pu-239`, `Pu-238/Pu-239+240`.
 
+## 2026-10-02  HAMGlobal2021 파서는 매핑 설정 방식으로
+- 결정: 열 이름을 코드에 고정하지 않고, `parsers/tabular.py` 가 자동 추정한 매핑을 사람이 JSON 으로 확정한 뒤 변환한다. 단위가 파일에 없으면 `UNKNOWN` 으로 두고 `--default-unit` 은 근거를 기록한 경우에만 쓴다.
+- 이유: 파일 형식을 확인하지 못한 상태에서 열 이름을 추측해 고정하면 틀렸을 때 조용히 잘못 변환될 수 있음. 매핑 JSON 은 입수 조건 기록과 함께 저장소에 남아 재현 가능.
+- 영향: `src/pacific_radio/parsers/tabular.py`, `parsers/hamglobal.py`, `data/raw/hamglobal2021/README.md`
+- 근거 자료: docs/data_sources.md A3 (🔎 등급), docs/parsers.md
+- 다음: 실제 파일 입수 후 `--inspect` 결과로 매핑 확정, 발췌본을 `tests/data/` 에 넣어 테스트 보강.
+
 ## 미결 사항 (결정 필요)
 - [ ] 공통 단위: Bq/m³ 로 할지 mBq/kg 로 할지. 질량↔부피 환산 시 밀도 가정 (TEOS-10 으로 현장 밀도 계산 vs 1.025 kg/L 상수) 결정 필요.
 - [ ] 붕괴 보정 기준일: 전체를 특정 일자 (예: 2020-01-01) 로 통일할지, 채취일 기준값으로 둘지.

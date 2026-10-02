@@ -249,9 +249,10 @@ def parse(
 
     # 3) 필수값 검사
     if drop_invalid:
-        bad = df[list(schema.REQUIRED)].isna().any(axis=1)
+        miss = schema.required_missing(df)
+        bad = miss.any(axis=1)
         report["n_dropped_invalid"] = int(bad.sum())
-        report["invalid_reasons"] = {c: int(df.loc[bad, c].isna().sum()) for c in schema.REQUIRED if df.loc[bad, c].isna().any()}
+        report["invalid_reasons"] = {c: int(miss[c].sum()) for c in schema.REQUIRED if miss[c].any()}
         df = df[~bad]
 
     df = df.reset_index(drop=True)

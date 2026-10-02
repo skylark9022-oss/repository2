@@ -39,7 +39,10 @@ repository2/
 │   ├── decay.py            ← 출처별 반감기, 붕괴 보정
 │   ├── regions.py          ← 태평양 판정 (경계상자 + MARIS 해역명)
 │   ├── store.py            ← data/processed/ 읽기·쓰기
-│   └── parsers/maris.py    ← IAEA MARIS NetCDF → 통합 스키마 (docs/parsers.md)
+│   └── parsers/
+│       ├── maris.py        ← IAEA MARIS NetCDF → 통합 스키마
+│       ├── tabular.py      ← CSV/XLSX 공용 엔진 (열 자동 탐지 + 매핑 JSON)
+│       └── hamglobal.py    ← HAMGlobal2021 (형식 미확인, --inspect 로 시작)
 ├── tests/                  ← 코드 검증 테스트 (tests/data/ 에 MARIS 형식 샘플)
 └── figures/                ← 그림 산출물
 ```
@@ -71,7 +74,7 @@ jupyter lab
 
 ## 단계별 계획
 
-- [ ] 1단계: 공개 DB 에서 자료 수집, 원본 보존 (`data/raw/`) — MARIS 파서 준비됨, 파일만 받으면 됨
+- [ ] 1단계: 공개 DB 에서 자료 수집, 원본 보존 (`data/raw/`) — MARIS·HAMGlobal2021 파서 준비됨, 파일만 받으면 됨
 - [ ] 2단계: 통합 스키마로 정리 (`data/processed/`) — MARIS 는 `python -m pacific_radio.parsers.maris` 로
 - [ ] 3단계: 단위·붕괴 보정 방침 결정 (`docs/decisions.md`)
 - [ ] 4단계: (a) 수심별 연직 프로파일
