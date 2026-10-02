@@ -1,0 +1,13 @@
+# 기본 분석 스택
+pandas>=2.0
+numpy>=1.24
+pyarrow>=14          # parquet 저장용
+openpyxl>=3.1        # 엑셀 원본 읽기
+xarray>=2023.1       # WOA 등 격자(netCDF) 자료
+netCDF4>=1.6
+gsw>=3.6             # TEOS-10 해수 열역학 (염분, 밀도 계산)
+scipy>=1.10
+matplotlib>=3.7
+cartopy>=0.22        # 지도 작도. 설치가 까다로우면 conda 사용 권장
+jupyterlab>=4.0
+pytest>=7.0

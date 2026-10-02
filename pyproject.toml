@@ -1,0 +1,9 @@
+[project]
+name = "pacific_radio"
+version = "0.0.1"
+description = "Pacific Ocean artificial radionuclide (Pu, Sr-90, Cs-137) database tools"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
